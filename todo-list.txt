@@ -1,5 +1,0 @@
-Updates:
-*add ForeignKey
-*each user should view his/her own login page
-
-- Add an image slideshow in the index.html and homepage.html files
