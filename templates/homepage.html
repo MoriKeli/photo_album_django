@@ -1,0 +1,33 @@
+{% include 'base.html' %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homepage</title>
+</head>
+<body>
+    <div class="home-container">
+        {% include 'messages.html' %}
+        <div class="image-card-container">
+
+        {% for image in uploaded_images reversed %}
+
+            <div class="image-card">
+                <img src="{{image.image_file.url}}" alt="{{image.image_name}}.jpg">
+                <div class="description">
+                    Image name: {{image.image_name}}<br>
+                    Description: {{image.image_description}}<br>
+                    Uploaded: {{image.image_upload_date}}<br>
+                </div>
+                <a class="btn btn-danger btn-sm"  href="{% url 'delete' image.pk %}">Delete photo</a>
+            </div>
+
+        {% endfor %}
+        
+        </div>
+    </div>
+</body>
+</html>
