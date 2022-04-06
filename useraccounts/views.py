@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.models import auth, User
+from useraccounts.forms import EditProfile
+
 from datetime import datetime
 
 from useraccounts.models import *
@@ -40,9 +42,6 @@ def user_login(request):
 def user_registration(request):
     if request.method == 'POST':
         username = request.POST['username']
-        gender = request.POST['gender']
-        user_dob = request.POST['dob']
-        phone = request.POST['phone']
         email = request.POST['email']
         password = request.POST['password']
         confirm_password = request.POST['c_password']
@@ -69,13 +68,6 @@ def user_registration(request):
             auth_user_reg = User.objects.create_user(username=username, email=email, password=confirm_password)
             auth_user_reg.save()
 
-            current_date = datetime.today()
-            dob = datetime.strptime(user_dob, '%Y-%m-%d')
-            age = current_date - dob
-
-            save_user_details = Users.objects.create(name=username, gender=gender, phone_no=phone, date_of_birth=user_dob, age=int(age.days/365.25))
-            save_user_details.save()
-
             messages.success(request, 'User {} registered successfully!'.format(username))
             return redirect('/')
 
@@ -85,3 +77,16 @@ def logout(request):
     auth.logout(request)
     messages.info(request, 'Goodbyeeee... Thanks for using the website. See you soon.')
     return redirect('/')
+
+def user_profile(request):
+    # reg_user = 
+    if request.method == 'POST':
+        form = EditProfile(request.POST, request.FILES, instance=request.user)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Profile picture changed successfully.')
+            # return redirect('edit_profile')
+    else:
+        form = EditProfile()
+
+    return render(request, 'profile.html', {'form': form})

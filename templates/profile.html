@@ -1,0 +1,31 @@
+{% include 'base.html' %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Profile</title>
+</head>
+<body>
+    <div class="sticky-nav">
+        <a class="btn btn-warning btn-lg" href="{% url 'user_homepage' %}">Back to homepage</a>
+        <br>
+        <img src="{{user.users.profile_pic.url}}" alt="dp.img">        
+    </div>
+    <div class="body-content">
+        
+        <div class="form-container">
+            {% include 'messages.html' %}
+            <form action="" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <h3>Edit profile</h3>
+                {{form}}
+                <button>Edit Profile</button>
+            </form>
+        </div>
+    </div>
+    <script src="{% static 'slides.js' %}"></script>
+</body>
+</html>

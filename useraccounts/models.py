@@ -1,16 +1,16 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 class Users(models.Model):
-    name = models.CharField(max_length=30)
-    age = models.IntegerField()
-    gender = models.CharField(max_length=10)
-    phone_no = models.CharField(max_length=20)
-    date_of_birth = models.DateField()
+    relation = models.OneToOneField(User, on_delete=models.CASCADE)
+    profile_pic = models.ImageField(null=True, blank=True)
+
     user_account_created = models.DateTimeField(auto_now_add=True)
 
-    class Meta:
-        verbose_name = 'Registered Users'
-        verbose_name_plural = verbose_name
+    # class Meta:
+    #     verbose_name = 'Registered Users'
+    #     verbose_name_plural = verbose_name
 
     def __str__(self):
-        return 'User {} created account on {}'.format(self.name, self.user_account_created.strftime('%a %dth-%m-%Y %H:%M:%S'))
+        return f'Profile pic updated on {self.user_account_created.strftime("%a %dth-%m-%Y")} at {self.user_account_created.strftime("%H:%M:%S")}'
+    

@@ -10,9 +10,12 @@
 </head>
 <body>
     <div class="home-container">
-        {% include 'messages.html' %}
         <div class="image-card-container">
-
+            <nav class="secondary-nav-bar">
+                <label class="image-logo"><img src="{{user.users.profile_pic.url}}" alt="dp.img"></label>
+                <h5>Hello, {{user.username}}</h5>
+            </nav>
+            {% include 'messages.html' %}
         {% for image in uploaded_images reversed %}
 
             <div class="image-card">
